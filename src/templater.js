@@ -134,13 +134,16 @@ var Templater = function (list) {
       if (valueName.data) {
         for (var j = 0, jl = valueName.data.length; j < jl; j++) {
           values[valueName.data[j]] = list.utils.getAttribute(item.elm, 'data-' + valueName.data[j])
+          
         }
       } else if (valueName.attr && valueName.name) {
         elm = list.utils.getByClass(item.elm, valueName.name, true)
-        values[valueName.name] = elm ? list.utils.getAttribute(elm, valueName.attr) : ''
+        //values[valueName.name] = elm ? list.utils.getAttribute(elm, valueName.attr) : ''
+        values[valueName.name] = elm ? list.utils.getAttribute(elm, valueName.attr) : (list.utils.getAttribute(item.elm, valueName.attr) !== null ? list.utils.getAttribute(item.elm, valueName.attr) : '');
       } else {
         elm = list.utils.getByClass(item.elm, valueName, true)
-        values[valueName] = elm ? elm.innerHTML : ''
+        //values[valueName] = elm ? elm.innerHTML : ''
+        values[valueName] = elm ? elm.innerHTML : (item.elm.innerHTML !== null ? item.elm.innerHTML : '');
       }
     }
     return values
